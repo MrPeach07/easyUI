@@ -16,21 +16,20 @@
     $(function() {
         var x = [];//X轴
         var y = [];//Y轴
-        var xtext = ['10:30', '11:00','11:30','12:00', '12:30', '13:00','13:30','14:00', '14:30', '15:00', '15:30','16:00','16:30',
-        '17:00','17:30','18:00','18:30','19:00','19:30'];//X轴TEXT
+        var xtext = [];//X轴TEXT
         var color = ["skyblue"];
             $.ajax({
             type:'get',
             url:'CanteeServlet', //请求数据的地址
             //dataType:'json', //后台传值指定格式
-            //data:{pname:"pname",pnum:"pnum"},//发送到服务器的数据格式
+            //data:{people_count:"people_count",ptime:"ptime"},//发送到服务器的数据格式
             success:function(json){
                 //解析json数据
                 var j = eval("("+json+")");
                 //遍历json
                 for(var key in j){
                     j[key].y = j[key].people_count; //给Y轴赋值
-                    //xtext.push(j[key].Time);//给X轴TEXT赋值
+                    xtext.push(j[key].ptime);//给X轴TEXT赋值
                     j[key].color= color[key];
                 }
                 chart.series[0].setData(j);//数据填充到highcharts上面
@@ -72,7 +71,7 @@
          //每隔3秒自动调用方法，实现图表的实时更新
          window.setInterval(getForm,3000);
 
-         });  */
+         });*/
     });
 </script>
 <div id="container" style="margin: 0 auto" >
