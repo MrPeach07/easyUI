@@ -1,24 +1,11 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Administrator
-  Date: 2017/7/1
-  Time: 13:54
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <!--jquert,highcharts插件导入-->
     <title>一食堂C出入口</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <script type="text/javascript" src="js/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="js/highcharts.js"></script>
-    <!--easyUI插件导入-->
-    <!--<link rel="stylesheet" type="text/css" href="css/easyui.css">
-    <link rel="stylesheet" type="text/css" href="css/icon.css">
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/jquery.easyui.min.js"></script>-->
-    <!--highcharts插件导入-->
-
 
 
 </head>
@@ -29,10 +16,10 @@
     $(function() {
         var x = [];//X轴
         var y = [];//Y轴
-        var xtext = [];//X轴TEXT
-        var color = ["gray","tan","red","blue","yellow","green","black","purple","skyblue"];
-        /*var ytext = [];//Y轴TEXT*/
-        $.ajax({
+        var xtext = ['10:30', '11:00','11:30','12:00', '12:30', '13:00','13:30','14:00', '14:30', '15:00', '15:30','16:00','16:30',
+        '17:00','17:30','18:00','18:30','19:00','19:30'];//X轴TEXT
+        var color = ["skyblue"];
+            $.ajax({
             type:'get',
             url:'CanteeServlet', //请求数据的地址
             //dataType:'json', //后台传值指定格式
@@ -42,9 +29,8 @@
                 var j = eval("("+json+")");
                 //遍历json
                 for(var key in j){
-                    xtext.push(j[key].Time);//给X轴TEXT赋值
-                    /*ytext.push(j[key].people_coint);*///给Y轴值的数组赋值
                     j[key].y = j[key].people_count; //给Y轴赋值
+                    //xtext.push(j[key].Time);//给X轴TEXT赋值
                     j[key].color= color[key];
                 }
                 chart.series[0].setData(j);//数据填充到highcharts上面
@@ -54,8 +40,6 @@
 
             }
         });
-
-
         //创建图表
         var chart = new Highcharts.Chart({
             chart : {
@@ -64,24 +48,24 @@
             },
 
             title:{
-                text:'实时人口流量信息柱状图' //图表的标题
+                text:'一食堂C入口实时人口流量柱形图' //图表的标题
             },
 
             xAxis:{
-                /* title:{
-                 text:'时间' //X轴的名称
-                 }, */
+                 title:{
+                 text:'人口数量' //X轴的名称
+                 },
                 categories:xtext //X轴的种类
             },
 
             yAxis:{
                 title:{
-                    text:'人口流量' //Y轴的名称
+                    text:'人口数量' //Y轴的名称
                 }
             },
 
             series : [ {
-                name:"人口流量"
+                name:"人口数目"
             } ]
         });
         /*$(document).ready(function() {
